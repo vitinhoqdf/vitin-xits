@@ -1,0 +1,119 @@
+import { useState } from 'react'
+import Logo from './assets/vitin.jpeg'
+import { MoreVertical, Sun, Moon } from "lucide-react";
+import { SiInstagram, SiTiktok } from "react-icons/si";
+import { AiFillInstagram } from "react-icons/ai";
+import './App.css'
+
+
+import { Analytics } from '@vercel/analytics/react';
+
+function App() {
+
+
+  const [isDark, setIsDark] = useState(true);
+
+  const groups = [
+
+    { name: "Adquira seu xit aqui!!", gap: "gap-2", url: "https://wa.me/5579998851745?text=Ol%C3%A1!%20Tenho%20interesse%20em%20adquirir%20o%20Xit." },
+
+    {
+      name: "TIKTOK",
+      gap: "gap-3",
+      url: "https://www.tiktok.com/@vitinxits?is_from_webapp=1&sender_device=pc",
+      icon: SiTiktok,
+      iconBg: "bg-black",
+    },
+  ];
+
+  return (
+    <>
+      <div>
+        <div
+          className={`flex min-h-screen flex-col justify-start px-6 pt-6 pb-12 lg:px-8 ${isDark ? "bg-gradient-to-br from-[#09090B] via-[#450A0A] to-[#B91C1C]" : "bg-slate-100"
+            }`}
+        >
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm flex items-center justify-between">
+            <div className="flex-1" />
+            <button
+              onClick={() => setIsDark(!isDark)}
+              aria-label="Alternar tema"
+              className={`p-2 rounded-full ${isDark ? "hover:bg-white/10" : "hover:bg-black/5"
+                }`}
+            >
+              {isDark ? (
+                <Sun className="w-5 h-5 text-white" />
+              ) : (
+                <Moon className="w-5 h-5 text-slate-900" />
+              )}
+            </button>
+          </div>
+
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img src={Logo} alt="Logo" className="mx-auto w-32 h-32 rounded-full object-cover" />
+            <h2
+              className={`mt-10 text-center text-4xl font-bold tracking-tight ${isDark ? "text-white" : "text-slate-900"
+                }`}
+            >
+              VITIN XITS
+            </h2>
+          </div>
+
+
+          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm flex flex-col space-y-4">
+            {groups.map((group) => (
+              <a
+                key={group.name}
+                href={group.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full max-w-sm rounded-2xl shadow-sm px-3 py-2 flex items-center justify-between cursor-pointer ${group.gap} border ${isDark
+                  ? "bg-black hover:bg-zinc-900 border-transparent"
+                  : "bg-white hover:bg-black/5 border-slate-200"
+                  }`}
+              >
+                {group.icon ? (
+                  <div
+                    className={`w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 ${group.iconBg}`}
+                  >
+                    <group.icon className="w-7 h-7 text-white" />
+                  </div>
+                ) : (
+                  <img
+                    src={Logo}
+                    alt="Group thumbnail"
+                    className="w-14 h-14 rounded-xl object-cover flex-shrink-0"
+                  />
+                )}
+
+                <div className="flex-1 min-w-0 px-2">
+                  <h3
+                    className={`text-[15px] font-semibold uppercase truncate ${isDark ? "text-white" : "text-slate-900"
+                      }`}
+                  >
+                    {group.name}
+                  </h3>
+                </div>
+
+                <span
+                  aria-label="Mais opções"
+                  className="p-1.5 rounded-full"
+                >
+                  <MoreVertical
+                    className={`w-5 h-5 transition-transform hover:scale-105 ${isDark
+                      ? "text-gray-500 hover:text-gray-300"
+                      : "text-slate-400 hover:text-slate-600"
+                      }`}
+                  />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+      <Analytics />
+    </>
+  );
+}
+
+export default App;
